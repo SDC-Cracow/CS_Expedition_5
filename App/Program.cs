@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Library;
 
 namespace CS_Expedition_5
 {
@@ -37,6 +38,29 @@ namespace CS_Expedition_5
             var arr = new[] { 0, 1, 0, };
             arr.Where(o => o > 0);
             Enumerable.Where(arr, o => o > 0);
+
+
+
+            // access modifiers
+
+            // public class form another assembly
+            Library.PublicClass pc = new PublicClass();
+
+            // public inner class form another assembly
+            Library.PublicClass.PublicInnerClass pcic = new PublicClass.PublicInnerClass();
+
+            // internal class from another assembly
+            // is not visible in client application
+            //Library.InternalClass ic = new InternalClass();
+
+            // private inner class form another assembly
+            // is not visible in client application
+            //Library.PublicClass.PrivateInnerClass pcic1 = new PublicClass.PrivateInnerClass();
+
+            // internal inner class form another assembly
+            // is not visible in client application
+            //Library.PublicClass.InternalInnerClass pcic2 = new PublicClass.InternalInnerClass();
+
         }
     }
 }

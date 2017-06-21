@@ -50,14 +50,19 @@
   <ItemGroup>
     <Compile Include="EnumTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="InternalsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CS_Expedition_5\App.csproj">
+    <ProjectReference Include="..\App\App.csproj">
       <Project>{89d761bf-b603-462e-abd2-450c739b3e20}</Project>
       <Name>App</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Library\Library.csproj">
+      <Project>{24e2cdea-c211-4388-a1f8-c450996816d2}</Project>
+      <Name>Library</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
