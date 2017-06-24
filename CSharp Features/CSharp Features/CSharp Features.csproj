@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSharp.cs" />
+    <Compile Include="CSharp_2.cs" />
     <Compile Include="CSharp_3.cs" />
     <Compile Include="CSharp_4.cs" />
     <Compile Include="CSharp_5.cs" />
