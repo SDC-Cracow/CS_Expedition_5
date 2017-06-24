@@ -10,17 +10,17 @@ namespace Library
 
     public class PublicClass
     {
-        // only inner classes can be private
-        private class PrivateInnerClass { }
-
-        // can be reached from other assembly 
+        // can be reached from other assembly
         public class PublicInnerClass { }
 
-        // internal in assembly (inside assembly behave as public, outside as private) 
+        // internal in assembly (inside assembly behave as public, outside as private)
         internal class InternalInnerClass { }
+
+        // only inner classes can be private
+        private class PrivateInnerClass { }
     }
 
-    // internal in assembly (inside assembly behave as public, outside as private) 
+    // internal in assembly (inside assembly behave as public, outside as private)
     internal class InternalClass
     {
         private readonly int _int = Int32.MaxValue;
@@ -37,15 +37,6 @@ namespace Library
         {
         }
 
-        private void Method()
-        {
-            // readonly fields can be assign only in constructor
-            //_int = 0;
-
-            // get only properties can be assign only in constructor
-            //I = 1;
-        }
-
         public bool PublicMethod()
         {
             return true;
@@ -54,6 +45,15 @@ namespace Library
         internal bool InternalMethod()
         {
             return true;
+        }
+
+        private void Method()
+        {
+            // readonly fields can be assign only in constructor
+            //_int = 0;
+
+            // get only properties can be assign only in constructor
+            //I = 1;
         }
 
         private bool PrivateMethod()
