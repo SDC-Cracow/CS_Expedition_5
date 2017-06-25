@@ -1,7 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CSharpFeatures
 {
+    public static class ExtensionClass
+    {
+        /// <summary>
+        /// Extension Methods are C# 3.0 Feature
+        /// This features are available in Visual Studio 2008
+        /// Introduced with Linq
+        /// </summary>
+        public static int ExtensionMethod(this int i)
+        {
+            return i;
+        }
+
+        /// <summary>
+        /// Linq was introduced with C# 3.0
+        /// it requires Extension Methods, Generics and Lambdas
+        /// </summary>
+        /// <param name="enumerable"></param>
+        /// <returns></returns>
+        public static IEnumerable<int> ExtensionMethodLinq(this IEnumerable<int> enumerable)
+        {
+            // Lambdas also are C# 3.0 Feature
+            return enumerable.Where(o => o < 0);
+        }
+    }
+
     /// <summary>
     /// Demonstrate key new C# 3.0 Features
     /// This features are available in Visual Studio 2008
@@ -30,33 +57,6 @@ namespace CSharpFeatures
             staticIntAutoProperty = constIntField;
             staticIntAutoProperty = staticIntField;
         }
-
-        // we can initialize normal Field with const Field
-        private int IntField1 = constIntField;
-
-        // we can initialize const Field with const Field
-        private const int constIntField1 = constIntField;
-
-        // we can initialize readonly Field with const Field
-        private readonly int roIntField1 = constIntField;
-
-        // we can initialize normal Field with static Field
-        private int IntField2 = staticIntField;
-
-        // we can initialize readonly Field with static Field
-        private readonly int roIntField2 = staticIntField;
-
-        // we can't initialize const Field with static Field
-        //private const int constIntField2 = staticIntField;
-
-        // we can't initialize Auto-Property
-        //private int Intproperty1 { get; set; } = constIntField;
-
-        // we can't define const Property
-        // protected const int constIntProperty { get; set;}
-
-        // we can't declare const readonly Field
-        //private readonly const int constIntField3;
 
         /// <summary>
         /// C# 3.0 Feature - we can use var keyword

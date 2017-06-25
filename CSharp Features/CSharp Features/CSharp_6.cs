@@ -1,5 +1,10 @@
-﻿using System;
+﻿#define CSHARP6
+
+#if CSHARP6
+
+using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CSharpFeatures
 {
@@ -12,13 +17,29 @@ namespace CSharpFeatures
     /// </summary>
     public class CSharp_6 : CSharp_5
     {
-        // since C# 6.0 we can initialize Properties, Fields (including Read-Only) using const or static variable
-        public int X1 { get; set; } = constIntField;
+        /// <summary>
+        /// Auto-Property Initializers are C# 6.0
+        /// We can initialize Properties, Fields (including Read-Only) using const variable
+        /// </summary>
+        private int IntAutoPoperty1 { get; set; } = constIntField;
 
-        public int X2 { get; } = constIntField;
+        /// <summary>
+        /// Auto-Property Initializers are C# 6.0
+        /// We can initialize Properties, Fields (including Read-Only) using static variable
+        /// </summary>
+        private int IntAutoPoperty2 { get; set; } = staticIntField;
 
-        public int Z1 { get; set; } = staticIntField;
-        public int Z2 { get; } = staticIntField;
+        /// <summary>
+        /// read-only Auto-Properties are C# 6.0 Feature
+        /// We can initialize Properties, Fields (including Read-Only) using const variable
+        /// </summary>
+        private int IntReadOnlyAutoPoperty1 { get; } = constIntField;
+
+        /// <summary>
+        /// read-only Auto-Properties are C# 6.0 Feature
+        /// We can initialize Properties, Fields (including Read-Only) using static variable
+        /// </summary>
+        private int IntReadOnlyAutoPoperty2 { get; } = staticIntField;
 
         /// <summary>
         /// C# 6.0 and VB 14 - Language Feature - Constructor assignment to getter-only auto Property
@@ -28,14 +49,14 @@ namespace CSharpFeatures
         public CSharp_6()
         {
             // C# 6.0 and VB 14 - Language Feature - Constructor assignment to getter-only auto Property
-            GetOnlyAutoProperty = 5;
+            IntReadOnlyAutoPoperty1 = 5;
         }
 
         /// <summary>
-        /// C# 6.0 - Language Feature : Dictionary initializer
+        /// IndexInitializers are C# 6.0 Feature : Dictionary initializer
         /// Syntax sugar
         /// </summary>
-        public void DictionaryInitializer()
+        public void IndexInitializers()
         {
             // before C# 6.0 we can initialize Dictionary using {} brackets
             var dict_cs5 = new Dictionary<string, int>()
@@ -85,67 +106,87 @@ namespace CSharpFeatures
         ///    get { return ExpressionMethod(roInt1, roInt2); }
         /// }
         /// </summary>
-        public double ExpressionProperty => ExpressionMethod(roIntField, rostaticIntField);
+        public double ExpressionProperty => ExpressionMethod(1, 5);
 
         /// <summary>
-        /// C# 6.0 Inline Declarations for Out Parameters
-        /// Syntax sugar
+        /// Null Conditional Operators are C# 6.0 Feature
+        /// https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-6#null-conditional-operators
         /// </summary>
-        public void OutParametersInlineDeclaration()
+        /// <returns></returns>
+        public IEnumerable<int> NullConditionalOperators()
         {
-            // before C# 6.0 we need to declare variable before using it as a method parameter
+            return this as IEnumerable<int> ?? new List<int>();
+        }
 
-            // inline declaration of int variable
-            if (int.TryParse("256", out int i))
+        /// <summary>
+        /// Interpolated String are C# 6.0 Feature
+        /// https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-6#string-interpolation
+        /// </summary>
+        /// <returns></returns>
+        public string StringInterpolation()
+        {
+            return $"{IntAutoPoperty1} : {intField2}";
+        }
+
+        /// <summary>
+        /// Exception filters are C# 6.0 Feature
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<string> ExceptionFilters()
+        {
+            var client = new System.Net.Http.HttpClient();
+            var streamTask = client.GetStringAsync("https://localHost:10000");
+            try
             {
-                // we can use this variable
-                Console.WriteLine(i);
+                var responseText = await streamTask;
+                return responseText;
             }
-
-            // inline declaration of int by var keyword
-            if (int.TryParse("256", out var v))
+            catch (System.Net.Http.HttpRequestException e) when (e.Message.Contains("301"))
             {
-                Console.WriteLine(v);
+                return "Site Moved";
             }
-
-            // we can use i variable later on in method (if scope allow)
-            if (i != 0) { }
         }
 
-        protected internal void PrivateExternal_ProtectedInternal()
+        /// <summary>
+        /// nameof Expressions are C# 6.0 Feature
+        /// </summary>
+        /// <param name="param"></param>
+        public void NameofExpressions(string param)
         {
-            (string a, string b) myTuple = ("a", "b");
-
-            var alphabetStart = (Alpha: "a", Beta: "b");
-
-            (string First, string Second) firstLetters = (Alpha: "a", Beta: "b");
-
-            var min = Range(1, 2, 4).Min;
-
-            (double c, double d) = this;
+            string nameofParam = nameof(param);
         }
 
-        private static (int Max, int Min) Range(params int[] numbers)
+        /// <summary>
+        /// await in catch and finally blocks are C# 6.0 Feature
+        /// </summary>
+        public async Task AwaitInCatchAndFinallyBlocks()
         {
-            return Range(numbers as IEnumerable<int>);
-        }
-
-        private static (int Max, int Min) Range(IEnumerable<int> numbers)
-        {
-            int min = int.MaxValue;
-            int max = int.MinValue;
-            foreach (var n in numbers)
+            try
             {
-                min = (n < min) ? n : min;
-                max = (n > max) ? n : max;
+                await ExceptionFilters();
             }
-            return (max, min);
+            catch (Exception e)
+            {
+                await ExceptionFilters();
+            }
+            finally
+            {
+                await ExceptionFilters();
+            }
         }
 
-        public void Deconstruct(out double x, out double y)
+        public void ExtensionMethodsForCollectionInitializers()
         {
-            x = this.X1;
-            y = this.X2;
+            // PLEASE LOOK AT
+            // https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-6#extension-add-methods-in-collection-initializers
+        }
+
+        public void ImprovedOverloadResolution()
+        {
+            // PLEASE LOOK AT
+            // https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-6#improved-overload-resolution
         }
     }
 }
+
+#endif

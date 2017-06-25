@@ -1,4 +1,8 @@
-﻿using System.Diagnostics;
+﻿#define CSHARP5
+
+#if CSHARP5
+
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -11,8 +15,8 @@ namespace CSharpFeatures
     public class CSharp_5 : CSharp_4
     {
         /// <summary>
-        /// <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/async">async</a> / 
-        /// <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/await">await</a> keywords and 
+        /// <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/async">async</a> /
+        /// <a href="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/await">await</a> keywords and
         /// <a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/index">programming-guide</a>
         /// </summary>
         public async void MethodVoidAsync()
@@ -70,3 +74,5 @@ namespace CSharpFeatures
         }
     }
 }
+
+#endif

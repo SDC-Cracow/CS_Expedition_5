@@ -116,7 +116,30 @@ namespace CSharpFeatures
         /// </summary>
         protected static int staticIntField = 3;
 
-        protected int intField;
+        /// <summary>
+        /// we can initialize normal Field with const Field
+        /// </summary>
+        protected int intField1 = constIntField;
+
+        /// <summary>
+        ///  we can initialize normal Field with static Field
+        /// </summary>
+        protected int intField2 = staticIntField;
+
+        /// <summary>
+        /// we can initialize const Field with const Field
+        /// </summary>
+        private const int constIntField1 = constIntField;
+
+        /// <summary>
+        /// we can initialize readonly Field with const Field
+        /// </summary>
+        private readonly int roIntField1 = constIntField;
+
+        /// <summary>
+        /// we can initialize readonly Field with static Field
+        /// </summary>
+        private readonly int roIntField2 = staticIntField;
 
         /// <summary>
         /// Static constructor is called before first use of class
@@ -139,7 +162,7 @@ namespace CSharpFeatures
             StaticIntProperty = 0;
 
             // non static (normal) Fields and Properties can be initialized from Constructor
-            intField = 0;
+            intField1 = 0;
             IntProperty = 0;
         }
 
@@ -166,12 +189,12 @@ namespace CSharpFeatures
         /// </summary>
         public int IntProperty
         {
-            get { return intField; }
-            set { intField = value; }
+            get { return intField1; }
+            set { intField1 = value; }
         }
 
         /// <summary>
-        /// readonly Property with backing field are C# 1.0 Feature
+        /// read-only Property with backing field are C# 1.0 Feature
         /// </summary>
         public int IntReadOnlyProperty
         {
@@ -183,7 +206,7 @@ namespace CSharpFeatures
         /// </summary>
         public int IntSetOnlyProperty
         {
-            set { intField = value; }
+            set { intField1 = value; }
         }
 
         /// <summary>
